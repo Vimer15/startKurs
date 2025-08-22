@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ваши вклады</title>
+    <link rel="stylesheet" href="/style/vklsdy.css">
+</head>
+<body>
+    <nav>
+            <div class="logo">VAY-BANK</div>
+            <ul class="nav-menu">
+                <li><a href="#">Главное</a></li>
+                <li><a href="#">Профиль</a></li>
+                <li><a href="#">Расходы</a></li>
+                <li><a href="#">Доходы</a></li>
+                <li><a href="#" class="active">Вклады</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <div class="stat-card total animate">
+                <div class="stat-label">Общая стоимость</div>
+                <div class="stat-value">356 800 ₽</div>
+                <div class="stat-desc">Все активы</div>
+            </div>
+            
+            <div class="stat-card profit animate">
+                <div class="stat-label">Прибыль</div>
+                <div class="stat-value">+42 500 ₽</div>
+                <div class="stat-desc">+13.5% за всё время</div>
+            </div>
+            
+            <div class="stat-card assets animate">
+                <div class="stat-label">Активы</div>
+                <div class="stat-value">3</div>
+                <div class="stat-desc">В портфеле</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Инвестиционные активы</h2>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Assets Grid -->
+            <div class="assets-section">
+                <h3 class="subsection-title">Доступные активы</h3>
+                <div class="assets-grid">
+                    <div class="asset-card animate" onclick="selectAsset('uksivt')">
+                        <div class="asset-icon">🪙</div>
+                        <div class="asset-name">UKSIVT-COIN</div>
+                        <div class="asset-price">1 250 ₽</div>
+                        <div class="asset-change change-up">+5.2%</div>
+                    </div>
+                    
+                    <div class="asset-card animate" onclick="selectAsset('ufa')">
+                        <div class="asset-icon">🏛️</div>
+                        <div class="asset-name">UFA-COIN</div>
+                        <div class="asset-price">890 ₽</div>
+                        <div class="asset-change change-up">+2.8%</div>
+                    </div>
+                    
+                    <div class="asset-card animate" onclick="selectAsset('honey')">
+                        <div class="asset-icon">🍯</div>
+                        <div class="asset-name">Башкирский мёд</div>
+                        <div class="asset-price">2 100 ₽</div>
+                        <div class="asset-change change-up">+8.1%</div>
+                    </div>
+                    
+                    <div class="asset-card animate" onclick="selectAsset('gold')">
+                        <div class="asset-icon">🥇</div>
+                        <div class="asset-name">Золотой слиток</div>
+                        <div class="asset-price">4 750 ₽</div>
+                        <div class="asset-change change-down">-1.2%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trade Section -->
+            <div class="trade-section animate">
+                <h3 class="subsection-title">Торговая площадка</h3>
+                <div class="trade-tabs">
+                    <div class="trade-tab active" onclick="switchTab('buy')">Покупка</div>
+                    <div class="trade-tab" onclick="switchTab('sell')">Продажа</div>
+                </div>
+
+                <div class="trade-form" id="buyForm">
+                    <div class="form-group">
+                        <label>Выберите актив</label>
+                        <select class="form-input" id="buyAsset">
+                            <option value="">-- Выберите актив --</option>
+                            <option value="uksivt">UKSIVT-COIN (1 250 ₽)</option>
+                            <option value="ufa">UFA-COIN (890 ₽)</option>
+                            <option value="honey">Башкирский мёд (2 100 ₽)</option>
+                            <option value="gold">Золотой слиток (4 750 ₽)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Количество</label>
+                        <input type="number" class="form-input" id="buyAmount" placeholder="0" min="1" oninput="calculateTotal('buy')">
+                    </div>
+
+                    <div class="amount-preview">
+                        <div class="preview-label">Общая стоимость</div>
+                        <div class="preview-value" id="buyTotal">0 ₽</div>
+                    </div>
+
+                    <button class="trade-btn" onclick="buyAssets()" disabled>Купить</button>
+                </div>
+
+                <div class="trade-form" id="sellForm" style="display: none;">
+                    <div class="form-group">
+                        <label>Выберите актив для продажи</label>
+                        <select class="form-input" id="sellAsset">
+                            <option value="">-- Выберите актив --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Количество для продажи</label>
+                        <input type="number" class="form-input" id="sellAmount" placeholder="0" min="1" oninput="calculateTotal('sell')">
+                    </div>
+
+                    <div class="amount-preview">
+                        <div class="preview-label">Вы получите</div>
+                        <div class="preview-value" id="sellTotal">0 ₽</div>
+                    </div>
+
+                    <button class="trade-btn sell-btn" onclick="sellAssets()" disabled>Продать</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Section -->
+        <div class="portfolio-section animate">
+            <h3 class="subsection-title">Ваш портфель</h3>
+            <ul class="portfolio-list" id="portfolioList">
+                <li class="portfolio-item">
+                    <div class="portfolio-asset">
+                        <div class="portfolio-icon">🪙</div>
+                        <span>UKSIVT-COIN</span>
+                    </div>
+                    <div class="portfolio-amount">15 шт</div>
+                    <div class="portfolio-value">18 750 ₽</div>
+                </li>
+                
+                <li class="portfolio-item">
+                    <div class="portfolio-asset">
+                        <div class="portfolio-icon">🏛️</div>
+                        <span>UFA-COIN</span>
+                    </div>
+                    <div class="portfolio-amount">8 шт</div>
+                    <div class="portfolio-value">7 120 ₽</div>
+                </li>
+                
+                <li class="portfolio-item">
+                    <div class="portfolio-asset">
+                        <div class="portfolio-icon">🍯</div>
+                        <span>Башкирский мёд</span>
+                    </div>
+                    <div class="portfolio-amount">3 шт</div>
+                    <div class="portfolio-value">6 300 ₽</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-section animate">
+            <h3 class="subsection-title">Динамика портфеля</h3>
+            <div class="chart-container">
+                <div class="chart-line"></div>
+                <div class="chart-bars">
+                    <div class="chart-bar" style="height: 40%;"></div>
+                    <div class="chart-bar" style="height: 60%;"></div>
+                    <div class="chart-bar" style="height: 30%;"></div>
+                    <div class="chart-bar" style="height: 80%;"></div>
+                    <div class="chart-bar" style="height: 50%;"></div>
+                    <div class="chart-bar" style="height: 70%;"></div>
+                    <div class="chart-bar" style="height: 90%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <script>
+        // Prices of assets
+        const assetPrices = {
+            'uksivt': 1250,
+            'ufa': 890,
+            'honey': 2100,
+            'gold': 4750
+        };
+
+        // User portfolio
+        let userPortfolio = {
+            'uksivt': 15,
+            'ufa': 8,
+            'honey': 3,
+            'gold': 0
+        };
+
+        // Selected asset
+        let selectedAsset = null;
+
+        // Switch between buy/sell tabs
+        function switchTab(tab) {
+            document.querySelectorAll('.trade-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.trade-form').forEach(f => f.style.display = 'none');
+            
+            document.querySelector(`.trade-tab:nth-child(${tab === 'buy' ? 1 : 2})`).classList.add('active');
+            document.getElementById(tab + 'Form').style.display = 'block';
+            
+            // Update sell options
+            updateSellOptions();
+        }
+
+        // Select asset from grid
+        function selectAsset(asset) {
+            document.querySelectorAll('.asset-card').forEach(card => card.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            selectedAsset = asset;
+            document.getElementById('buyAsset').value = asset;
+            calculateTotal('buy');
+            updateBuyButton();
+        }
+
+        // Calculate total amount
+        function calculateTotal(type) {
+            const assetSelect = document.getElementById(type + 'Asset');
+            const amountInput = document.getElementById(type + 'Amount');
+            const totalElement = document.getElementById(type + 'Total');
+            
+            const asset = assetSelect.value;
+            const amount = parseInt(amountInput.value) || 0;
+            
+            if (asset && amount > 0) {
+                const price = assetPrices[asset];
+                const total = price * amount;
+                totalElement.textContent = total.toLocaleString('ru-RU') + ' ₽';
+            } else {
+                totalElement.textContent = '0 ₽';
+            }
+            
+            if (type === 'buy') {
+                updateBuyButton();
+            } else {
+                updateSellButton();
+            }
+        }
+
+        // Update buy button state
+        function updateBuyButton() {
+            const asset = document.getElementById('buyAsset').value;
+            const amount = parseInt(document.getElementById('buyAmount').value) || 0;
+            const button = document.querySelector('#buyForm .trade-btn');
+            
+            button.disabled = !asset || amount <= 0;
+        }
+
+        // Update sell button state
+        function updateSellButton() {
+            const asset = document.getElementById('sellAsset').value;
+            const amount = parseInt(document.getElementById('sellAmount').value) || 0;
+            const button = document.querySelector('#sellForm .trade-btn');
+            
+            button.disabled = !asset || amount <= 0 || amount > userPortfolio[asset];
+        }
+
+        // Update sell options based on portfolio
+        function updateSellOptions() {
+            const select = document.getElementById('sellAsset');
+            select.innerHTML = '<option value="">-- Выберите актив --</option>';
+            
+            for (const [asset, amount] of Object.entries(userPortfolio)) {
+                if (amount > 0) {
+                    const option = document.createElement('option');
+                    option.value = asset;
+                    option.textContent = `${getAssetName(asset)} (${amount} шт)`;
+                    select.appendChild(option);
+                }
+            }
+        }
+
+        // Get asset name by key
+        function getAssetName(asset) {
+            const names = {
+                'uksivt': 'UKSIVT-COIN',
+                'ufa': 'UFA-COIN',
+                'honey': 'Башкирский мёд',
+                'gold': 'Золотой слиток'
+            };
+            return names[asset];
+        }
+
+        // Buy assets
+        function buyAssets() {
+            const asset = document.getElementById('buyAsset').value;
+            const amount = parseInt(document.getElementById('buyAmount').value);
+            
+            if (!asset || !amount) {
+                showNotification('Выберите актив и укажите количество', true);
+                return;
+            }
+            
+            userPortfolio[asset] = (userPortfolio[asset] || 0) + amount;
+            updatePortfolio();
+            showNotification(`Успешно куплено ${amount} ${getAssetName(asset)}!`);
+            
+            // Reset form
+            document.getElementById('buyAmount').value = '';
+            calculateTotal('buy');
+        }
+
+        // Sell assets
+        function sellAssets() {
+            const asset = document.getElementById('sellAsset').value;
+            const amount = parseInt(document.getElementById('sellAmount').value);
+            
+            if (!asset || !amount) {
+                showNotification('Выберите актив и укажите количество', true);
+                return;
+            }
+            
+            if (amount > userPortfolio[asset]) {
+                showNotification('Недостаточно активов для продажи', true);
+                return;
+            }
+            
+            userPortfolio[asset] -= amount;
+            updatePortfolio();
+            showNotification(`Успешно продано ${amount} ${getAssetName(asset)}!`);
+            
+            // Reset form
+            document.getElementById('sellAmount').value = '';
+            calculateTotal('sell');
+            updateSellOptions();
+        }
+
+        // Update portfolio display
+        function updatePortfolio() {
+            const portfolioList = document.getElementById('portfolioList');
+            portfolioList.innerHTML = '';
+            
+            let totalValue = 0;
+            
+            for (const [asset, amount] of Object.entries(userPortfolio)) {
+                if (amount > 0) {
+                    const value = amount * assetPrices[asset];
+                    totalValue += value;
+                    
+                    const item = document.createElement('li');
+                    item.className = 'portfolio-item';
+                    item.innerHTML = `
+                        <div class="portfolio-asset">
+                            <div class="portfolio-icon">${getAssetIcon(asset)}</div>
+                            <span>${getAssetName(asset)}</span>
+                        </div>
+                        <div class="portfolio-amount">${amount} шт</div>
+                        <div class="portfolio-value">${value.toLocaleString('ru-RU')} ₽</div>
+                    `;
+                    portfolioList.appendChild(item);
+                }
+            }
+            
+            // Update total value in dashboard
+            document.querySelector('.stat-card.total .stat-value').textContent = 
+                totalValue.toLocaleString('ru-RU') + ' ₽';
+        }
+
+        // Get asset icon by key
+        function getAssetIcon(asset) {
+            const icons = {
+                'uksivt': '🪙',
+                'ufa': '🏛️',
+                'honey': '🍯',
+                'gold': '🥇'
+            };
+            return icons[asset];
+        }
+
+        // Show notification
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            const text = document.getElementById('notificationText');
+            
+            text.textContent = message;
+            notification.className = isError ? 'notification error' : 'notification';
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePortfolio();
+            updateSellOptions();
+            
+            // Animation on scroll
+            const animatedElements = document.querySelectorAll('.animate');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

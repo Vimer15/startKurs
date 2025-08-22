@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="/style/mainPage.css">
+</head>
+<body>
+    <header>
+    <nav>
+        <div class="logo">VAY-BANK</div>
+        <ul class="nav-menu">
+            <li><a href="#" class="active">Главное</a></li>
+            <li><a href="/template/profile.html">Профиль</a></li>
+            <li><a href="/template/traty.html">Расходы</a></li>
+            <li><a href="#">Доходы</a></li>
+            <li><a href="#">Вклады</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="container">
+            <h1>VAY-BANK</h1>
+            <p>Ваш надежный финансовый партнер. Мы создаем будущее банкинга вместе с вами. Инновационные решения, премиальный сервис и безопасность, которой можно доверять.</p>
+        </div>
+    </section>
+
+    <section class="news-feed">
+        <div class="container">
+            <h2 class="section-title">Новости и акции</h2>
+            <div class="news-grid">
+                <div class="news-card animate">
+                    <h3>Новые процентные ставки по вкладам</h3>
+                    <p>С 1 января 2024 года мы повышаем процентные ставки по всем видам вкладов. Максимальная доходность теперь достигает 8.5% годовых.</p>
+                    <span class="news-date">15 декабря 2023</span>
+                </div>
+                
+                <div class="news-card animate">
+                    <h3>Запуск мобильного приложения</h3>
+                    <p>Теперь управлять своими финансами стало еще проще! Новое мобильное приложение VAY-BANK доступно в App Store и Google Play.</p>
+                    <span class="news-date">10 декабря 2023</span>
+                </div>
+                
+                <div class="news-card animate">
+                    <h3>Бесплатные переводы между банками</h3>
+                    <p>Мы отменили комиссию на переводы между всеми банками России. Совершайте операции без дополнительных затрат.</p>
+                    <span class="news-date">5 декабря 2023</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нас</h2>
+            <div class="features-grid">
+                <div class="feature-card animate">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Максимальная безопасность</h3>
+                    <p>Современные технологии защиты ваших средств и персональных данных</p>
+                </div>
+                
+                <div class="feature-card animate">
+                    <div class="feature-icon">💎</div>
+                    <h3>Премиальный сервис</h3>
+                    <p>Персональные менеджеры и круглосуточная поддержка 24/7</p>
+                </div>
+                
+                <div class="feature-card animate">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Инновации</h3>
+                    <p>Передовые технологии для удобного банкинга будущего</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Телефон: 8-800-555-35-35</p>
+                <p>Email: support@vay-bank.ru</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Часы работы</h3>
+                <p>Пн-Пт: 9:00 - 20:00</p>
+                <p>Сб-Вс: 10:00 - 18:00</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Адрес</h3>
+                <p>Москва, Пресненская наб., 12</p>
+                <p>Центр международной торговли</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 VAY-BANK. Все права защищены. Лицензия ЦБ РФ № 1234</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Простая анимация появления элементов при скролле
+    document.addEventListener('DOMContentLoaded', function() {
+        const animatedElements = document.querySelectorAll('.animate');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        animatedElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    });
+</script>
+</body>
+</html>

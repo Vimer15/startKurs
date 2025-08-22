@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style/Profile.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">VAY-BANK</div>
+            <ul class="nav-menu">
+                <li><a href="/template/mainPage.html">Главное</a></li>
+                <li><a href="#" class="active">Профиль</a></li>
+                <li><a href="/template/traty.html">Расходы</a></li>
+                <li><a href="#">Доходы</a></li>
+                <li><a href="#">Вклады</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="profile-header animate">
+            <div class="profile-avatar">
+                <div class="avatar-placeholder">👤</div>
+            </div>
+            <h1 class="profile-name">Алексей Петров</h1>
+            <p class="profile-status">Platinum клиент с 2021 года</p>
+        </div>
+
+        <!-- Cards Section -->
+        <div class="cards-section">
+            <!-- Main Card -->
+            <div class="card-side">
+                <div class="card-container">
+                    <div class="card" id="mainCard">
+                        <div class="card-face card-default">
+                            <div class="card-header">
+                                <div class="card-bank">VAY-BANK</div>
+                                <div class="card-chip" onclick="flipCard('main')"></div>
+                            </div>
+                            <div class="card-amount" id="mainAmount">258 900 ₽</div>
+                            <div class="card-number">4512 7845 2369 0158</div>
+                            <div class="card-footer">
+                                <div>
+                                    <div class="card-label">ВЛАДЕЛЕЦ</div>
+                                    <div class="card-holder">ALEXEY PETROV</div>
+                                </div>
+                                <div>
+                                    <div class="card-label">ДЕЙСТВУЕТ ДО</div>
+                                    <div class="card-expiry">09/26</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-face card-back">
+                            <div class="cvv-label">CVV</div>
+                            <div class="card-cvv">728</div>
+                            <p class="flip-hint" onclick="flipCard('main')">Нажмите для возврата →</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-controls">
+                    <div class="color-picker">
+                        <div class="color-option color-default active" onclick="changeCardColor('main', 'default')"></div>
+                        <div class="color-option color-red" onclick="changeCardColor('main', 'red')"></div>
+                        <div class="color-option color-green" onclick="changeCardColor('main', 'green')"></div>
+                        <div class="color-option color-orange" onclick="changeCardColor('main', 'orange')"></div>
+                    </div>
+                    <button class="hide-amount-btn" onclick="toggleAmount('main')" id="mainAmountBtn">Скрыть сумму</button>
+                </div>
+            </div>
+
+            <!-- Savings Card -->
+            <div class="card-side">
+                <div class="card-container">
+                    <div class="card" id="savingsCard">
+                        <div class="card-face card-default">
+                            <div class="card-header">
+                                <div class="card-bank">VAY-BANK SAVINGS</div>
+                                <div class="card-chip" onclick="flipCard('savings')"></div>
+                            </div>
+                            <div class="card-amount" id="savingsAmount">85 000 ₽</div>
+                            <div class="card-number">7845 4512 9015 3624</div>
+                            <div class="card-footer">
+                                <div>
+                                    <div class="card-label">ЦЕЛЬ</div>
+                                    <div class="card-holder" contenteditable="true" onclick="event.stopPropagation()">Коплю на машину</div>
+                                </div>
+                                <div>
+                                    <div class="card-label">ДЕЙСТВУЕТ ДО</div>
+                                    <div class="card-expiry">12/27</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-face card-back">
+                            <div class="cvv-label">CVV</div>
+                            <div class="card-cvv">491</div>
+                            <p class="flip-hint" onclick="flipCard('savings')">Нажмите для возврата →</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-controls">
+                    <div class="color-picker">
+                        <div class="color-option color-default active" onclick="changeCardColor('savings', 'default')"></div>
+                        <div class="color-option color-red" onclick="changeCardColor('savings', 'red')"></div>
+                        <div class="color-option color-green" onclick="changeCardColor('savings', 'green')"></div>
+                        <div class="color-option color-orange" onclick="changeCardColor('savings', 'orange')"></div>
+                    </div>
+                    <button class="hide-amount-btn" onclick="toggleAmount('savings')" id="savingsAmountBtn">Скрыть сумму</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-card animate">
+            <div class="progress-header">
+                <h2 class="progress-title">Прогресс накопления</h2>
+                <input type="text" class="progress-goal-input" placeholder="Цель: 500 000 ₽" value="500 000 ₽">
+            </div>
+            <p>Накоплено 85 000 ₽ из 500 000 ₽</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 17%;"></div>
+            </div>
+            <div class="progress-info">
+                <div class="progress-amount">85 000 ₽</div>
+                <div class="progress-percentage">17%</div>
+            </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="additional-info">
+            <div class="info-card animate">
+                <h3>📈 Статистика</h3>
+                <p>Месячный лимит: 100 000 ₽</p>
+                <p>Текущие траты: 42 300 ₽</p>
+                <p>Остаток: 57 700 ₽</p>
+            </div>
+            
+            <div class="info-card animate">
+                <h3>🎯 Цели</h3>
+                <p>Автомобиль: 500 000 ₽</p>
+                <p>Отпуск: 150 000 ₽</p>
+                <p>Ремонт: 200 000 ₽</p>
+            </div>
+            
+            <div class="info-card animate">
+                <h3>⚡ Быстрые действия</h3>
+                <p>Перевод между счетами</p>
+                <p>Пополнение накопительного счета</p>
+                <p>Установка лимитов</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Состояния карт
+        const cardStates = {
+            main: { flipped: false, amountVisible: true },
+            savings: { flipped: false, amountVisible: true }
+        };
+
+        // Переворот карты
+        function flipCard(cardType) {
+            const card = document.getElementById(`${cardType}Card`);
+            cardStates[cardType].flipped = !cardStates[cardType].flipped;
+            card.classList.toggle('flipped');
+        }
+
+        // Скрытие/показ суммы
+        function toggleAmount(cardType) {
+            const amountElement = document.getElementById(`${cardType}Amount`);
+            const button = document.getElementById(`${cardType}AmountBtn`);
+            
+            cardStates[cardType].amountVisible = !cardStates[cardType].amountVisible;
+            
+            if (cardStates[cardType].amountVisible) {
+                amountElement.textContent = cardType === 'main' ? '258 900 ₽' : '85 000 ₽';
+                button.textContent = 'Скрыть сумму';
+            } else {
+                amountElement.textContent = '•••••• ₽';
+                button.textContent = 'Показать сумму';
+            }
+        }
+
+        // Смена цвета карты
+        function changeCardColor(cardType, color) {
+            const card = document.getElementById(`${cardType}Card`);
+            const frontFace = card.querySelector('.card-face:not(.card-back)');
+            
+            // Убираем все цветные классы
+            frontFace.classList.remove('card-default', 'card-red', 'card-green', 'card-orange');
+            
+            // Добавляем выбранный цвет
+            frontFace.classList.add(`card-${color}`);
+            
+            // Обновляем активные кнопки
+            const container = event.target.closest('.card-side');
+            container.querySelectorAll('.color-option').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Запрет переворота при редактировании текста
+        document.querySelectorAll('[contenteditable="true"]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            element.addEventListener('focus', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Анимация появления элементов
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 100);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

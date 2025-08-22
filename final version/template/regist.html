@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="/style/regist.css">
+</head>
+<body>
+    <div class="menuInputRegist">
+        <h3 class="TitleText">Заполните поля для Регистрация</h3>
+
+        <h4>Заполните фамилию</h4>
+        <input type="text" id="lastName" placeholder="Введите фамилию">
+        <div class="error-message" id="lastNameError">Только русские буквы, первая заглавная</div>
+
+        <h4>Заполните имя:</h4>
+        <input type="text" id="firstName" placeholder="Введите имя">
+        <div class="error-message" id="firstNameError">Только русские буквы, первая заглавная</div>
+
+        <h4>Заполните отчество</h4>
+        <input type="text" id="middleName" placeholder="Введите отчество">
+        <div class="error-message" id="middleNameError">Только русские буквы, первая заглавная</div>
+
+        <h4>Введите почту</h4>
+        <input type="email" id="email" placeholder="Введите почту">
+        <div class="error-message" id="emailError">Введите корректный email</div>
+
+        <h4>Введите пароль</h4>
+        <input type="password" id="password" placeholder="Введите пароль">
+        <div class="error-message" id="passwordError">Английские символы, минимум одна заглавная буква</div>
+
+        <h4>Повторите пароль</h4>
+        <input type="password" id="confirmPassword" placeholder="Повторите пароль">
+        <div class="error-message" id="confirmPasswordError">Пароли не совпадают</div>
+
+        <div class="success-message" id="successMessage">Регистрация успешна! Перенаправляем...</div>
+
+        <button class="BtnReg" onclick="validateForm()">Зарегистрировать аккаунт</button>
+        <button class="BtnAuth" onclick="window.location.href='index.html'">Войти в аккаунт</button>
+    </div>
+
+    <script>
+        // Регулярные выражения для валидации
+        const russianNameRegex = /^[А-ЯЁ][а-яё]*$/;
+        const passwordRegex = /^(?=.*[A-Z])[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        // Функция для валидации ФИО
+        function validateName(inputId, errorId) {
+            const input = document.getElementById(inputId);
+            const errorElement = document.getElementById(errorId);
+            const value = input.value.trim();
+            
+            if (!value) {
+                showError(input, errorElement, 'Поле обязательно для заполнения');
+                return false;
+            }
+            
+            if (!russianNameRegex.test(value)) {
+                showError(input, errorElement, 'Только русские буквы, первая заглавная');
+                return false;
+            }
+            
+            showSuccess(input, errorElement);
+            return true;
+        }
+        
+        // Функция для автоматического форматирования ФИО
+        function formatName(inputId) {
+            const input = document.getElementById(inputId);
+            let value = input.value.trim();
+            if (value.length > 0) {
+                // Делаем первую букву заглавной, остальные - строчными
+                value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+                input.value = value;
+            }
+        }
+        
+        // Функция для валидации email
+        function validateEmail() {
+            const input = document.getElementById('email');
+            const errorElement = document.getElementById('emailError');
+            const value = input.value.trim();
+            
+            if (!value) {
+                showError(input, errorElement, 'Поле обязательно для заполнения');
+                return false;
+            }
+            
+            if (!emailRegex.test(value)) {
+                showError(input, errorElement, 'Введите корректный email');
+                return false;
+            }
+            
+            showSuccess(input, errorElement);
+            return true;
+        }
+        
+        // Функция для валидации пароля
+        function validatePassword() {
+            const input = document.getElementById('password');
+            const errorElement = document.getElementById('passwordError');
+            const value = input.value;
+            
+            if (!value) {
+                showError(input, errorElement, 'Поле обязательно для заполнения');
+                return false;
+            }
+            
+            if (value.length < 8) {
+                showError(input, errorElement, 'Пароль должен содержать минимум 8 символов');
+                return false;
+            }
+            
+            if (!passwordRegex.test(value)) {
+                showError(input, errorElement, 'Английские символы, минимум одна заглавная буква');
+                return false;
+            }
+            
+            showSuccess(input, errorElement);
+            return true;
+        }
+        
+        // Функция для проверки совпадения паролей
+        function validateConfirmPassword() {
+            const password = document.getElementById('password').value;
+            const input = document.getElementById('confirmPassword');
+            const errorElement = document.getElementById('confirmPasswordError');
+            const confirmPassword = input.value;
+            
+            if (!confirmPassword) {
+                showError(input, errorElement, 'Поле обязательно для заполнения');
+                return false;
+            }
+            
+            if (password !== confirmPassword) {
+                showError(input, errorElement, 'Пароли не совпадают');
+                return false;
+            }
+            
+            showSuccess(input, errorElement);
+            return true;
+        }
+        
+        // Функции для отображения ошибок и успеха
+        function showError(input, errorElement, message) {
+            input.classList.remove('valid');
+            input.classList.add('error');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        function showSuccess(input, errorElement) {
+            input.classList.remove('error');
+            input.classList.add('valid');
+            errorElement.style.display = 'none';
+        }
+        
+        // Функция для перенаправления на Страницу атворизации
+        function redirectToIndex() {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // Ждем 2 секунды и перенаправляем
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+        
+        // Главная функция валидации, привязанная к кнопке
+        function validateForm() {
+            // Форматируем ФИО перед проверкой
+            formatName('lastName');
+            formatName('firstName');
+            formatName('middleName');
+            
+            // Проверяем все поля
+            const isLastNameValid = validateName('lastName', 'lastNameError');
+            const isFirstNameValid = validateName('firstName', 'firstNameError');
+            const isMiddleNameValid = validateName('middleName', 'middleNameError');
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isConfirmPasswordValid = validateConfirmPassword();
+            
+            if (isLastNameValid && isFirstNameValid && isMiddleNameValid && 
+                isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+                // Все поля валидны, перенаправляем на index.html
+                redirectToIndex();
+            }
+        }
+        
+        // Инициализация обработчиков событий после загрузки страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчики для ФИО
+            ['lastName', 'firstName', 'middleName'].forEach(id => {
+                const input = document.getElementById(id);
+                input.addEventListener('blur', function() {
+                    formatName(id);
+                    validateName(id, id + 'Error');
+                });
+                
+                input.addEventListener('input', function() {
+                    // Ограничение ввода только русских букв
+                    this.value = this.value.replace(/[^А-Яа-яЁё]/g, '');
+                });
+            });
+            
+            // Обработчики для остальных полей
+            document.getElementById('email').addEventListener('blur', validateEmail);
+            document.getElementById('password').addEventListener('blur', validatePassword);
+            document.getElementById('confirmPassword').addEventListener('blur', validateConfirmPassword);
+            
+            // Ограничение ввода для пароля (только английские символы)
+            document.getElementById('password').addEventListener('input', function() {
+                this.value = this.value.replace(/[^A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g, '');
+            });
+        });
+    </script>
+</body>
+</html>
